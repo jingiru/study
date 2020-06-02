@@ -18,20 +18,24 @@ public class MainActivity extends AppCompatActivity {
     TextInputEditText TextInputEditText_Email;
     TextInputEditText TextInputEditText_Password;
     TextView moveButton;
+    String EmailOK = "123@gmail.com";
+    String PasswordOK = "sss";
+
+    String inputEmail = "";
+    String inputPassword = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String EmailOK = "123@gmail.com";
-        String PasswordOK = "sss";
+
 
 
         TextInputEditText_Email = findViewById(R.id.TextInputEditText_Email);
         TextInputEditText_Password = findViewById(R.id.TextInputEditText_Password);
-        TextView moveButton = findViewById(R.id.moveButton);
+        final TextView moveButton = findViewById(R.id.moveButton);
 
-        //1. 값을 가져온다.
+        //1. 값을 가져온다. - 검사
         //2. 클릭을 감지한다.
         //3. 1번의 값을 다음 액티비티로 넘긴다
 
@@ -43,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("check",s+","+count);
+                if(s!=null){
+                    inputEmail=s.toString();
+                    moveButton.setClickable(validation());
+                }
+
             }
 
             @Override
@@ -61,7 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("check",s+","+count);
+                if(s!=null){
+                    inputPassword=s.toString();
+                    moveButton.setClickable(validation());
+                }
             }
 
             @Override
@@ -85,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+    public boolean validation(){
+        return inputEmail.equals(EmailOK) && inputPassword.equals(PasswordOK);
     }
 
 }
